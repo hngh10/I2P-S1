@@ -352,3 +352,9 @@ while True:
         break
     else:
         print("Not a valid response, please say Y or N")
+        
+f = open("FINAL QUIZ (V3)", "a")
+f.write(str(input("What do you think of the code?")))
+f.write("\n\n")
+f.close()
+
