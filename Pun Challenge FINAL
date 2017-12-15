@@ -1,0 +1,55 @@
+import tkinter as tk
+import random
+
+arrayofpuns = ["Have you ever tried to eat a clock? It's very time consuming.", "I was wondering why the baseball was getting bigger. Then it hit me.", "I'd tell you a chemistry joke, but I know I would't get a reaction.", "Did you hear about the kidnapping at school? It's okay. He woke up.", "Did you hear about the 2 silk worms in a race? It ended in a tie!", "What do you call a cow with no legs? Ground beef.", "What do you call a cow during an earthquake? A milkshake.", "I was born to be a pessimist. My blood type is B Negative."]
+
+index = 7  # amount of indexes in the array, starts off at 7
+
+# Sets label text to pun
+def displaypun():
+  number = random.randint(0, index)
+  label.config(text=arrayofpuns[number])
+
+def newpun():
+  if(len(entry.get()) != 0):  # checking if the field is left blank.
+      arrayofpuns.append(entry.get())  # If it isn't, the pun is appended to the end of the array
+      global index  # defining the index variable as a global variable
+      index += 1  # incrementing amount of indexes in the array, as you are appending an item
+      label.config(text="Pun Added!")  # Informing the user that they successfully added a pun
+      entry.delete(0, 'end')  # Delete text in the entry field for convenience for the user.
+  else:
+      label.config(text="Invalid Pun! You did not enter anything!")  # Informing the user that the pun they entered is invalid as it's blank
+
+# Setup
+root = tk.Tk()  # Sets up a window
+root.title("Pun Generator")  # Sets up the title of the window: Pun Generator
+frame = tk.Frame(root)  # Lets you organize the layout, where the buttons and labels will go
+frame.pack()  # Organizes widgets in blocks before placing them in the parent widget
+
+# Pun Label
+label = tk.Label(root, fg="magenta4")   # Creating a new label, root signifies where I want label to be (on screen)
+label.pack()  # Puts the label within the frame
+
+# Generate New Pun Button
+punButton = tk.Button(frame,  # Creating new button, assigning to punbutton label, frame means button is within frame
+                   text="See New Pun",   # Button text
+                   command=displaypun)  # Run this function once button is pressed, display pun runs function
+punButton.pack(side=tk.LEFT)   # Putting the button on the left side of the screen
+
+# Quit Button
+quitbutton = tk.Button(frame,   # Creating new button, frame means within frame, assigning to quitbutton variable
+                   text="Quit Application",  # Read text for button indicating to quit
+                   command=quit,)   # When you click the button, the window closes
+quitbutton.pack(side=tk.RIGHT)  # Putting the button on the right side of the screen
+
+# Create a New Pun Button
+newbutton = tk.Button(frame,  # button that creates a new pun
+                   text="Create Pun",  # Text of the button
+                   command=newpun)  # newpun function will be called when pressed
+newbutton.pack(side=tk.RIGHT)  # Alignment of button
+
+# Entry
+entry = tk.Entry(frame, bd = 5)  # Text field where you can enter new puns, bd = 5 means border width of 5 pixels
+entry.pack(side = tk.RIGHT)  # Align to the right
+
+root.mainloop()  # Keeps the program in a loop until you close the window (keep clicking button over and over)
